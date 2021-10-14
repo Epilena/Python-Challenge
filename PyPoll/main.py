@@ -30,17 +30,18 @@ with open (elect_data) as csvfile:
         candidate_name= row[2]
         #create loop to tally candidate voted for
         if candidate_name not in CandidateVotes:
-            CandidateVotes[candidate_name] = 0
-            #Candidate.append(candidate_name)
+            CandidateVotes[candidate_name] = 1
+            Candidate.append(candidate_name)
+        else:
     
         #add votes to candidate's total count
             CandidateVotes[candidate_name]+=1
         #CandidateVotes[candidate_name]+=1
-
-    for candidate_name in CandidateVotes:
-        result= CandidateVotes[candidate_name]
-        vote_perc = float(result)/float(Votes) *100
-        cand_res= (f"{candidate_name}: {vote_perc:.2f}% ({result:,})")
+    cand_res_list = []
+    for name, vote in CandidateVotes.items():
+        result= name
+        vote_perc = float(vote)/float(Votes) *100
+        cand_res_list.append(f"{name}: {vote_perc:.2f}% ({vote:,})")
 
     #determining overall winner
         
@@ -50,7 +51,8 @@ print("Election Results")
 print("--------------------------")
 print(f"Total Votes: {Votes}")
 print("--------------------------")
-print(cand_res)
+for name2 in cand_res_list:
+    print(name2)
 print("---------------------------")
 #print(f"Winner: {}")
 #print("---------------------------")
