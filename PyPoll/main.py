@@ -33,6 +33,9 @@ with open (elect_data) as csvfile:
             CandidateVotes[candidate_name] = 1
             Candidate.append(candidate_name)
         else:
+
+            win_vote= max(CandidateVotes, key=CandidateVotes.get)
+            
     
         #add votes to candidate's total count
             CandidateVotes[candidate_name]+=1
@@ -42,18 +45,33 @@ with open (elect_data) as csvfile:
         result= name
         vote_perc = float(vote)/float(Votes) *100
         cand_res_list.append(f"{name}: {vote_perc:.2f}% ({vote:,})")
-
-    #determining overall winner
-        
+       
             
 #print results
+
 print("Election Results")
-print("--------------------------")
+print(f"--------------------------")
 print(f"Total Votes: {Votes}")
 print("--------------------------")
 for name2 in cand_res_list:
     print(name2)
 print("---------------------------")
-#print(f"Winner: {}")
-#print("---------------------------")
+print(f"Winner: {win_vote}")
+print("---------------------------")
 
+# print output to a text file
+output = os.path.join ("PyPoll", 'output.txt')
+with open(output, "w") as new:
+   new.write("Election Results")
+   new.write("\n")
+   new.write("----------------------------------")
+   new.write("\n")
+   new.write(f"Total Votes: {Votes}")
+   new.write("\n")
+for name3 in cand_res_list:
+    new.write(name3)
+    new.write("-----------------------------------")
+    new.write("\n")
+    new.write(f"Winner: {win_vote}")
+    new.write("\n")
+    new.write("-----------------------------------")
